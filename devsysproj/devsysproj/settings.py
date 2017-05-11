@@ -26,8 +26,11 @@ SECRET_KEY = '_*b844))&omdj+7)zx#1$%c4a$*cv61a)d3t=a!mr0^+ylxh2&'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+
+#celery config
 BROKER_URL = "amqp://root:123@localhost:5672//"
-#CELERY_RESULT_BACKEND = "database"
+#CELERY_RESULT_BACKEND = "redis://:foo@localhost:6379/15"
+CELERY_RESULT_BACKEND = "db+mysql://root:root@192.168.1.88:3306/resultdb"
 ALLOWED_HOSTS = ['*']
 
 
