@@ -10,8 +10,6 @@ https://docs.djangoproject.com/en/1.9/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.9/ref/settings/
 """
-import djcelery
-djcelery.setup_loader()
 
 import os
 
@@ -29,7 +27,8 @@ SECRET_KEY = '_*b844))&omdj+7)zx#1$%c4a$*cv61a)d3t=a!mr0^+ylxh2&'
 DEBUG = True
 
 BROKER_URL = "amqp://root:123@localhost:5672//"
-ALLOWED_HOSTS = []
+#CELERY_RESULT_BACKEND = "database"
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -41,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #'djcelery',
+    'demo',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -80,8 +81,12 @@ WSGI_APPLICATION = 'devsysproj.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'devprojdb',
+        'USER': 'root',
+        'PASSWORD':'root',
+        'HOST':'192.168.1.88',
+        'PORT':3306
     }
 }
 
