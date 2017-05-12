@@ -16,7 +16,11 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from demo import views
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^foo/', views.foo),
+    url(r'^foo/$', views.foo),
+    url(r'^login$', views.loginapp),
+    url(r'^testlogin$', views.testlogin.as_view()),
+
 ]

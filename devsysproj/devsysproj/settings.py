@@ -28,24 +28,32 @@ DEBUG = True
 
 
 #celery config
-BROKER_URL = "amqp://root:123@localhost:5672//"
+BROKER_URL = "amqp://root:123@192.168.1.132:5672//"
 #CELERY_RESULT_BACKEND = "redis://:foo@localhost:6379/15"
-CELERY_RESULT_BACKEND = "db+mysql://root:root@192.168.1.88:3306/resultdb"
+CELERY_RESULT_BACKEND = "db+postgresql://root:root@192.168.1.132:5432/resultdb"
 ALLOWED_HOSTS = ['*']
 
 
 # Application definition
 
-INSTALLED_APPS = [
+DEFAULT_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    #'djcelery',
+]
+
+CUSTOM_APPS = [
     'demo',
 ]
+
+THIRD_APPS = [
+    'rest_framework',
+]
+
+INSTALLED_APPS = DEFAULT_APPS + CUSTOM_APPS + THIRD_APPS
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
@@ -84,12 +92,12 @@ WSGI_APPLICATION = 'devsysproj.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'devprojdb',
         'USER': 'root',
         'PASSWORD':'root',
-        'HOST':'192.168.1.88',
-        'PORT':3306
+        'HOST':'192.168.1.132',
+        'PORT':5432
     }
 }
 
@@ -131,3 +139,17 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
+
+#REST_FRAME_WORK SETTINGS
+REST_FRAMEWORK = {
+
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+    ),
+
+    'DEFAULT_AUTHENTICATION_CLASSES':(
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication'
+    )
+}
+

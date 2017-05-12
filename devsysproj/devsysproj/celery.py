@@ -7,7 +7,7 @@ from celery import Celery
 # set the default Django settings module for the 'celery' program.
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'devsysproj.settings')
 
-app = Celery('devsysproj')
+app = Celery('devsysproj', broker="amqp://root:123@192.168.1.132:5672//")
 
 # Using a string here means the worker don't have to serialize
 # the configuration object to child processes.
