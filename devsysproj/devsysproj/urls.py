@@ -21,6 +21,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^foo/$', views.foo),
     url(r'^login$', views.loginapp),
+    url(r'^login2$', views.Login.as_view()),
     url(r'^testlogin$', views.testlogin.as_view()),
 
 ]
