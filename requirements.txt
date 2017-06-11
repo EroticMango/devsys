@@ -7,7 +7,9 @@ Django==1.9.13
 django-cors-headers==2.0.2
 djangorestframework==3.6.2
 kombu==4.0.2
+olefile==0.44
 packaging==16.8
+Pillow==4.1.1
 psycopg2==2.6.2
 pyparsing==2.2.0
 pytz==2017.2
