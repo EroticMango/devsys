@@ -61,8 +61,9 @@ INSTALLED_APPS = DEFAULT_APPS + CUSTOM_APPS + THIRD_APPS
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
+    'corsheaders.middleware.CorsMiddleware', #跨域
     'django.middleware.common.CommonMiddleware',
+    'base.middleware.CloseCsrfMiddleware',   #关闭csrf
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
@@ -95,13 +96,17 @@ WSGI_APPLICATION = 'devsysproj.wsgi.application'
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
 DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #     'NAME': 'devprojdb',
+    #     'USER': 'root',
+    #     'PASSWORD':'root',
+    #     'HOST':'192.168.1.132',
+    #     'PORT':5432
+    # }
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'devprojdb',
-        'USER': 'root',
-        'PASSWORD':'root',
-        'HOST':'192.168.1.132',
-        'PORT':5432
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
@@ -180,7 +185,9 @@ CORS_ORIGIN_WHITELIST = (
     'localhost:8000',
     '127.0.0.1:8080',
     '127.0.0.1:8000',
-    '0.0.0.0:8080'
+    '0.0.0.0:8080',
+    'localhost:8080',
+    '192.168.1.217:8080'
 )
 
 CORS_ALLOW_CREDENTIALS = True

@@ -9,6 +9,11 @@ class MyUser(models.Model):
 
     user = models.OneToOneField(User)
     nickname = models.CharField(max_length=128, default='')
+    headimg = models.ImageField(
+        upload_to='static/accounts/img',
+        blank=True,
+        null=True,
+        default='static/accounts/img/default.png')
 
     @receiver(post_save, sender=User)
     def create_user_account(sender, instance=None, created=False, **kwargs):
