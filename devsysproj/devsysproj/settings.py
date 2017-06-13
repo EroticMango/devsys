@@ -27,7 +27,7 @@ SECRET_KEY = '_*b844))&omdj+7)zx#1$%c4a$*cv61a)d3t=a!mr0^+ylxh2&'
 DEBUG = True
 
 
-#celery config
+#========================Celery Settings==============
 BROKER_URL = "amqp://root:123@192.168.1.132:5672//"
 #CELERY_RESULT_BACKEND = "redis://:foo@localhost:6379/15"
 CELERY_RESULT_BACKEND = "db+postgresql://root:root@192.168.1.132:5432/resultdb"
@@ -49,11 +49,12 @@ CUSTOM_APPS = [
     'demo',
     'accounts',
     'utils',
-    'corsheaders',
+    'blog',
 ]
 
 THIRD_APPS = [
     'rest_framework',
+    'corsheaders'
 ]
 
 INSTALLED_APPS = DEFAULT_APPS + CUSTOM_APPS + THIRD_APPS
@@ -163,7 +164,7 @@ REST_FRAMEWORK = {
 }
 
 
-#CORS SETTINGS
+#==============CORS SETTINGS===================
 CORS_ORIGIN_ALLOW_ALL = False
 
 CORS_ALLOW_HEADERS = (
@@ -200,3 +201,33 @@ CORS_ALLOW_METHODS = (
     'POST',
     'PUT',
 )
+
+import os
+CUR_PATH = os.getcwd()
+
+#=================Logging Settings===============
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': '{cur_path}/log/debug.log'.format(cur_path=CUR_PATH),
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+    },
+}
+
+#=========Email Settings==========
+EMAIL_HOST = 'smtp.163.com'
+EMAIL_HOST_USER = 'shellyhh@163.com' # 用户
+EMAIL_HOST_PASSWORD = '' # 密码
+EMAIL_SUBJECT_PREFIX = u'[重置密码]' # 为邮件Subject-line前缀,默认是'[django]'
+EMAIL_USE_TLS = False # 与SMTP服务器通信时，是否启动TLS链接(安全链接)。默认是false
