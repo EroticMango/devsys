@@ -10,6 +10,11 @@ from base.response import handle_response_data, form_error
 
 from django.contrib.auth import authenticate, login
 
+from django.conf import settings
+
+from accounts.models.myuser import MyUser
+from accounts.serializer.signinserializer import SignInSerializer
+
 class SignInApi(APIView):
 
     permission_classes = (AllowAny, )
@@ -23,11 +28,9 @@ class SignInApi(APIView):
             if user is not None:
                 if user.is_active:
                     login(request, user)
-                    return_data = {
-                        'sessionid': request.session.session_key
-                    }
-                    return handle_response_data(data=return_data)
+                    myuser = MyUser.objects.get(user=user)
+                    signinserializer = SignInSerializer(myuser)
+                    return handle_response_data(data=signinserializer.data)
             return handle_response_data(code=420, msg=u'用户不存在或者密码错误')
         else:
             return form_error(form_data.errors)
-

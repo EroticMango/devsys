@@ -5,6 +5,11 @@ from rest_framework import serializers
 import re
 
 from django.contrib.auth.models import User
+from django.db.models import Q
+
+from rest_framework.response import Response
+
+from base.response import handle_response_data, form_error
 
 class SignUpForm(serializers.Serializer):
 
@@ -20,6 +25,13 @@ class SignUpForm(serializers.Serializer):
         if is_chinese:
             raise serializers.ValidationError(u'不允许包含中文')
 
+        user_objs = User.objects.filter(username=data['username'])
+        if user_objs.count() > 0:
+            raise serializers.ValidationError(u'该用户名已经被注册')
+
+        user_objs = User.objects.filter(email=data['email'])
+        if user_objs.count() > 0:
+            raise serializers.ValidationError(u'该邮箱已经被注册')
         return data
 
     def create(self, validated_data):

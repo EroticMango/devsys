@@ -37,19 +37,20 @@ class Cache(object):
 class NewBaseManager(models.Manager):
 
     def get(self, *args, **kwargs):
-        data = None
-        selfmodel = self.model
-        querykey = cachekey.cache_key(model=selfmodel, **kwargs)
-        datakey = cache.get(querykey)
-        if datakey:
-            data = cache.get(datakey)
-            if data:
-                return data
+        # data = None
+        # selfmodel = self.model
+        # querykey = cachekey.cache_key(model=selfmodel, **kwargs)
+        # datakey = cache.get(querykey)
+        # if datakey:
+        #     data = cache.get(datakey)
+        #     if data:
+        #         return data
+        print "3333333"
         data = super(NewBaseManager, self).get(*args, **kwargs)
-        if data:
-            datakey = cachekey.make_key(data)
-            cache.set(querykey, datakey, 60*3)
-            cache.set(datakey, data, 60*15)
+        # if data:
+        #     datakey = cachekey.make_key(data)
+        #     cache.set(querykey, datakey, 60*3)
+        #     cache.set(datakey, data, 60*15)
         return data
 
     def get_queryset(self):
@@ -65,7 +66,7 @@ class MetaCaching(BaseModel):
         new_class = BaseModel.__new__(cls, *args, **kwargs)
         new_manager = NewBaseManager()
         new_manager.contribute_to_class(new_class, "objects")
-        new_class._default_manager = new_manager
+        new_class._meta._default_manager = new_manager
         return new_class
 
 #basecacheModel use for cache
@@ -75,15 +76,10 @@ class BaseCacheModel(models.Model):
 
     def save(self, *args, **kwargs):
         super(BaseCacheModel, self).save(*args, **kwargs)
-        updatedatakey = cachekey.make_key(self)
-        self.refresh_from_db() #刷新数值
-        cache.set(updatedatakey, self, 60*15) #缓存15分钟
 
 
     def delete(self, *args, **kwargs):
-        deletedatakey = cachekey.make_key(self)
         super(BaseCacheModel, self).delete(*args, **kwargs)
-        cache.delete(deletedatakey)
 
     class Meta:
        abstract = True
