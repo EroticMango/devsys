@@ -62,5 +62,9 @@ include/
 local/
 pip-selfcheck.json
 
+#db migrations file
 **/migrations/**
 !**/migrations/__init__.py
+
+#server config file
+svr.ini
