@@ -4,6 +4,8 @@ from base.basemodel import BaseCacheModel
 
 from django.db import models
 
+# from accounts.models.myuser import MyUser
+
 '''
     作者
     内容
@@ -17,7 +19,6 @@ from django.db import models
 class Article(BaseCacheModel):
     article_title = models.CharField(max_length=30, default='')
     content = models.TextField(default='')
-    author =
-
+    # author = models.ForeignKey(MyUser)
     class Meta:
         app_label= 'blog'

@@ -13,6 +13,7 @@ packaging==16.8
 Pillow==4.1.1
 psycopg2==2.6.2
 pyparsing==2.2.0
+python-memcached==1.58
 pytz==2017.2
 redis==2.10.5
 six==1.10.0

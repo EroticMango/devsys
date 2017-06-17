@@ -1,17 +1,17 @@
 #-*- coding:utf8 -*-
 
-__all__ = []
-
 import ConfigParser
 from django.conf import settings
 
 # DBNAME = cfg.get('DB', 'DBNAME')
+
+
 class SvrConfig(object):
 
     def __init__(self):
         self.conf_dict = {}
         self.init_conf()
-        print "=======init finish======="
+        # print "=======init finish======="
 
     @property
     def cfp(self):
@@ -29,7 +29,6 @@ class SvrConfig(object):
     def init_conf(self):
 
         sections = self.cfp.sections()
-        print sections
         for section in self.cfp.sections():
 
             section_dict = {}

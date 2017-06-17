@@ -43,6 +43,8 @@ CUSTOM_APPS = [
     'accounts',
     'utils',
     'blog',
+    'middleware',
+    'cache'
 ]
 
 THIRD_APPS = [
@@ -57,7 +59,6 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware', #跨域
     'django.middleware.common.CommonMiddleware',
-    'base.middleware.CloseCsrfMiddleware',   #关闭csrf
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
@@ -146,7 +147,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-#REST_FRAME_WORK SETTINGS
+#=================REST_FRAME_WORK SETTINGS=============
 REST_FRAMEWORK = {
 
     'DEFAULT_RENDERER_CLASSES': (
@@ -226,4 +227,15 @@ EMAIL_HOST = EMAIL_CONF['email_host']
 EMAIL_HOST_USER = EMAIL_CONF['email_host_user']# 用户
 EMAIL_HOST_PASSWORD = EMAIL_CONF['email_host_password'] # 密码
 EMAIL_SUBJECT_PREFIX = u'[重置密码]' # 为邮件Subject-line前缀,默认是'[django]'
-EMAIL_USE_TLS = False # 与SMTP服务器通信时，是否启动TLS链接(安全链接)。默认是false
+EMAIL_USE_TLS = False #与SMTP服务器通信时，是否启动TLS链接(安全链接)。默认是false
+
+
+#============Memcached Settings=======
+MEMACHED_CONF = Conf['MEMCACHED']
+MEMACHED_CONF_HOST = MEMACHED_CONF['location']
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': MEMACHED_CONF_HOST,
+    }
+}
