@@ -1,3 +1,4 @@
+#-*- coding:utf8 -*-
 """devsysproj URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -16,12 +17,13 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from demo import views
+from base.urls import urlpatterns as api_url
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
+    # url(r'^admin/', admin.site.urls),
     url(r'^foo/$', views.foo),
     url(r'^login$', views.loginapp),
     url(r'^login2$', views.Login.as_view()),
     url(r'^testlogin$', views.testlogin.as_view()),
     url(r'^accounts/', include('accounts.urls')),
-]
+] + api_url
