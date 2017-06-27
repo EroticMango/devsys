@@ -51,13 +51,10 @@ class PermissionChioces(object):
     def create_extra_permissions(self, *args, **kwargs):
         Permission.objects.create(**kwargs)
 
-    def delete_extra_permissions(self, *args, **kwargs):
-        Permission.objects.delete(**kwargs)
-
     def check_permissions(self, *args, **kwargs):
-        extra_permissions_db = Permission.objects.all().exclude(Q(codename__startswith="add")
-                                                                | Q(codename__startswith="change")
-                                                                | Q(codename__startswith="delete"))
+        extra_permissions_db = Permission.objects.all().exclude(Q(codename__startswith='add')
+                                                                | Q(codename__startswith='change')
+                                                                | Q(codename__startswith='delete'))
         extra_permissions = get_extra_permissions()
         self.compare_create_permissions(extra_permissions, extra_permissions_db)
 
@@ -73,9 +70,12 @@ class PermissionChioces(object):
 
     def compare_delete_permissions(self, extra_permissions, extra_permissions_db):
         '''
-            比较extra_permissions里面的数据是否在extra_permissions_db中
+            比较extra_permissions_db里面的数据是否在extra_permissions中
         '''
-        pass
+        extra_permissions_list = [perm['codename'] for perm in extra_permissions]
+        for perm_obj in extra_permissions_db:
+            if perm_obj.codename not in extra_permissions_list:
+                perm_obj.delete()
 
 
     def __getitem__(self, key):
