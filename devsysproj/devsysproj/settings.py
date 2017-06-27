@@ -44,7 +44,8 @@ CUSTOM_APPS = [
     'utils',
     'blog',
     'middleware',
-    'cache'
+    'cache',
+    'base'
 ]
 
 THIRD_APPS = [

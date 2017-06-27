@@ -29,3 +29,8 @@ class Article(BaseCacheModel):
     class Meta:
         app_label = 'blog'
         verbose_name = u'文章'
+
+
+    class Admin:
+        ordinary_permission = ('add_article',)
+        ordinary_obj_permission = ('delete_article', 'change_article')

@@ -4,7 +4,7 @@ from rest_framework import serializers
 
 import re
 
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.db.models import Q
 
 from rest_framework.response import Response
@@ -35,4 +35,7 @@ class SignUpForm(serializers.Serializer):
         return data
 
     def create(self, validated_data):
-        return User.objects.create_user(**validated_data)
+        user = User.objects.create_user(**validated_data)
+        ordinary_group = Group.objects.get(name=u'普通会员')
+        user.groups.add(ordinary_group)
+        return user
