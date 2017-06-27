@@ -11,6 +11,17 @@ from django.db.models.manager import BaseManager
 from cache.memcached import Memcached
 from django.core.cache import cache
 
+from django.apps import apps
+
+def get_all_models():
+    custom_apps = settings.CUSTOM_APPS
+    all_app_models = [apps.get_app_config(app).models for app in custom_apps]
+    all_valid_models = []
+    for app_models in all_app_models:
+        for k, v in app_models.iteritems():
+            all_valid_models.append(v)
+    return all_valid_models
+
 
 class QuerySetEx(QuerySet):
 

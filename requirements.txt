@@ -6,6 +6,7 @@ celery==4.0.2
 configparser==3.5.0
 Django==1.11.2
 django-cors-headers==2.0.2
+django-guardian==1.4.8
 djangorestframework==3.6.2
 kombu==4.0.2
 olefile==0.44

@@ -30,7 +30,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 DEFAULT_APPS = [
-    'django.contrib.admin',
+    # 'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -49,7 +49,8 @@ CUSTOM_APPS = [
 
 THIRD_APPS = [
     'rest_framework',
-    'corsheaders'
+    'corsheaders',
+    'guardian'
 ]
 
 INSTALLED_APPS = DEFAULT_APPS + CUSTOM_APPS + THIRD_APPS
@@ -239,3 +240,8 @@ CACHES = {
         'LOCATION': MEMACHED_CONF_HOST,
     }
 }
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend', # default
+    'guardian.backends.ObjectPermissionBackend',
+]

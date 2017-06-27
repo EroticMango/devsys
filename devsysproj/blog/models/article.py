@@ -28,3 +28,4 @@ class Article(BaseCacheModel):
 
     class Meta:
         app_label = 'blog'
+        verbose_name = u'文章'

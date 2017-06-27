@@ -48,3 +48,10 @@ class OperationBaseView(APIView):
         self.response = self.finalize_response(
             request, response, *args, **kwargs)
         return self.response
+
+
+class OperationView(OperationBaseView):
+    '''
+        针对登录用户操作
+    '''
+    permission_classes = (IsAuthenticated, )

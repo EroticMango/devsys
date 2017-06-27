@@ -6,6 +6,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 from base.basemodel import BaseCacheModel
+from base.operation import Operation
 
 class MyUser(BaseCacheModel):
 
@@ -33,3 +34,5 @@ class MyUser(BaseCacheModel):
         '''
         return 'www.baidu.com'
 # from django.contrib.auth.models import Group
+    class test(Operation):
+        pass
