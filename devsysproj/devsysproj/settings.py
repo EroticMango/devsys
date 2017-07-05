@@ -103,7 +103,7 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': DB_CONF['engine'],
-            'NAME': DB_CONF['name'],
+            'NAME': DB_CONF['dbname'],
             'USER': DB_CONF['user'],
             'PASSWORD': DB_CONF['password'],
             'HOST': DB_CONF['host'],
