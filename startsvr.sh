@@ -5,7 +5,7 @@ start)
     echo "server start"
     echo $0
     # uwsgi --ini ./Muta/uwsgi.ini
-    supervisord -c /devsysproj/conf/supervisord.conf
+    supervisord -c devsysproj/conf/supervisord.conf
     ;;
 stop)
     echo "server stop"
