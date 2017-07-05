@@ -9,6 +9,7 @@ django-cors-headers==2.0.2
 django-guardian==1.4.8
 djangorestframework==3.6.2
 kombu==4.0.2
+meld3==1.0.2
 olefile==0.44
 packaging==16.8
 Pillow==4.1.1
@@ -19,4 +20,6 @@ pytz==2017.2
 redis==2.10.5
 six==1.10.0
 SQLAlchemy==1.1.9
+supervisor==3.3.2
+uWSGI==2.0.15
 vine==1.1.3
